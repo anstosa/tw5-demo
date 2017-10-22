@@ -8372,7 +8372,7 @@ Error message and password prompt
 <div title="$:/isEncrypted">
 <pre>no</pre>
 </div>
-<div author="Ansel Santosa" core-version="&gt;=5.0.0" dependents="" description="Markdown" list="readme usage" plugin-type="plugin" source="https://github.com/anstosa/tw5-markdown" title="$:/plugins/anstosa/tw5-markdown" type="application/json" version="1.0.0">
+<div author="Ansel Santosa" core-version="&gt;=5.0.0" dependents="" description="Markdown" list="readme usage" plugin-type="plugin" source="https://github.com/anstosa/tw5-markdown" title="$:/plugins/anstosa/tw5-markdown" type="application/json" version="1.1.1">
 <pre>{
     &quot;tiddlers&quot;: {
         &quot;$:/language/Docs/Types/text/x-markdown&quot;: {
@@ -8429,7 +8429,7 @@ Error message and password prompt
         &quot;$:/plugins/anstosa/tw5-markdown/readme&quot;: {
             &quot;title&quot;: &quot;$:/plugins/anstosa/tw5-markdown/readme&quot;,
             &quot;type&quot;: &quot;text/x-markdown&quot;,
-            &quot;text&quot;: &quot;This a comprehensive Markdown plugin for TiddlyWiki including syntax from [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/)\n\n## Features\n\nSee the [plugin Usage page](#%24%3A%2Fplugins%2Fanstosa%2Ftw5-markdown%2Fusage)\nfor a full demo of the supported features\n\n* Adds Markdown content type\n* Adds Markdown compatible editor toolbar\n* Defaults to Markdown for new tiddlers\n* Full set of rich Markdown features\n  * Headings\n  * Text: Bold, Italic, &amp; Strikethrough\n  * External and internal links\n  * Embedded images\n  * Blockquote\n  * Lists: bulletted, numbered, &amp; checkboxes\n  * Tables\n  * Horizontal rule\n  * Code: inline and block with syntax highlighting\n\n## Installation\n\nTo add the plugin to your own TiddlyWiki5, just drag this link to the browser window:\n\n[$:/plugins/anstosa/tw5-markdown](#%24%3A%2Fplugins%2Fanstosa%2Ftw5-markdown)\n\n## Contributing\n\n[github.com/anstosa/tw5-markdown](https://github.com/anstosa/tw5-markdown)\n&quot;
+            &quot;text&quot;: &quot;This a comprehensive Markdown plugin for TiddlyWiki including syntax from [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/)\n\n## Features\n\nSee the [plugin Usage page](#%24%3A%2Fplugins%2Fanstosa%2Ftw5-markdown%2Fusage) for a full demo of the supported features\n\n* **Backwards Compatible:** All your `TiddlyWiki 5` syntax still works (transclusion, macros, links, etc). Anything that the Markdown engine doesn't recognize falls back to the built-in parser.\n* Adds Markdown content type\n* Adds Markdown compatible editor toolbar\n* Defaults to Markdown for new tiddlers\n* Full set of rich Markdown features\n  * Headings\n  * Text: Bold, Italic, &amp; Strikethrough\n  * External and internal links\n  * Embedded images\n  * Blockquote\n  * Lists: bulletted, numbered, &amp; checkboxes\n  * Tables\n  * Horizontal rule\n  * Code: inline and block with syntax highlighting\n\n## Installation\n\nTo add the plugin to your own TiddlyWiki5, just drag this link to the browser window:\n\n[$:/plugins/anstosa/tw5-markdown](#%24%3A%2Fplugins%2Fanstosa%2Ftw5-markdown)\n\n## Contributing\n\n[github.com/anstosa/tw5-markdown](https://github.com/anstosa/tw5-markdown)\n&quot;
         },
         &quot;$:/plugins/anstosa/tw5-markdown/style.js&quot;: {
             &quot;title&quot;: &quot;$:/plugins/anstosa/tw5-markdown/style.js&quot;,
@@ -8612,7 +8612,7 @@ Error message and password prompt
             &quot;text&quot;: &quot;The following serves as a quick-reference for what is supported\n\n# Heading 1\n\n## Heading 2\n\n_Italic_\n\n**Bold**\n\n~~Strikethrough~~\n\n[External Link](https://a.com)\n\n[Internal Link](#Your Page)\n\n![Image](http://placehold.it/50x50)\n\n&gt; Blockquote\n\n* List\n* List\n* List\n\n1. One\n2. Two\n3. Three\n\n- [ ] foo\n- [X] bar\n- [ ] baz\n\n| First Header  | Second Header |\n| ------------- | ------------- |\n| Content Cell  | Content Cell  |\n| Content Cell  | Content Cell  |\n\n\nHorizontal Rule\n\n---\n\n`Inline code` with backticks\n\n```javascript\n// code block\nfunction yup() {\n    console.log('yup');\n}\n```\n&quot;
         },
         &quot;$:/plugins/anstosa/tw5-markdown/wrapper.js&quot;: {
-            &quot;text&quot;: &quot;/*\\\ntitle: $:/plugins/anstosa/tw5-markdown/wrapper.js\ntype: application/javascript\nmodule-type: parser\n\nWraps up the markdown-it parser for use in TiddlyWiki5\n\\*/\n(() =&gt; {\n    'use strict';\n\n    let dom;\n    if (typeof(window) !== 'undefined') {\n        dom = new DOMParser();\n    }\n    const highlight = require('$:/plugins/anstosa/tw5-markdown/highlight.js');\n    const MarkdownIt = require('$:/plugins/anstosa/tw5-markdown/markdown.js');\n    const markdown = new MarkdownIt({\n        highlight: (source, syntax) =&gt; {\n            if (syntax &amp;&amp; highlight.getLanguage(syntax)) {\n                try {\n                    return highlight.highlight(syntax, source).value;\n                } catch (__) {}\n            }\n            return '';\n        },\n        html: false,\n        linkify: true,\n        typographer: true,\n    });\n    markdown.use(require('$:/plugins/anstosa/tw5-markdown/markdown-checkbox.js'), {\n        disabled: true,\n        idPrefix: 'c-task-list__item__checkbox__',\n        ulClass: 'c-task-list',\n        liClass: 'c-task-list__item'\n    });\n\n    const tiddlify = (node) =&gt; {\n        if (node.nodeType === 3) {\n            return {\n                text: node.textContent,\n                type: 'text'\n            };\n        }\n        if (node.tagName) {\n            const widget = {\n                attributes: {},\n                tag: node.tagName.toLowerCase(),\n                type: 'element'\n            };\n            $tw.utils.each(node.attributes, (attribute) =&gt; {\n                widget.attributes[attribute.nodeName] = {\n                    type: 'string',\n                    value: attribute.nodeValue\n                };\n            });\n            widget.children = [];\n            node.childNodes.forEach((child) =&gt; {\n                widget.children.push(tiddlify(child));\n            });\n            return widget;\n        }\n    };\n\n    class MarkdownParser {\n        constructor(type, text, options) {\n            const source = markdown.render(text);\n            const tree = dom.parseFromString(source, 'text/html');\n            this.tree = tiddlify(tree.body).children;\n        }\n    }\n\n    exports['text/x-markdown'] = MarkdownParser;\n})();\n&quot;,
+            &quot;text&quot;: &quot;/*\\\ntitle: $:/plugins/anstosa/tw5-markdown/wrapper.js\ntype: application/javascript\nmodule-type: parser\n\nWraps up the markdown-it parser for use in TiddlyWiki5\n\\*/\n(() =&gt; {\n    'use strict';\n\n    const TYPE_WIKI = 'text/vnd.tiddlywiki';\n\n    let dom;\n    if (typeof(window) !== 'undefined') {\n        dom = new DOMParser();\n    }\n    const highlight = require('$:/plugins/anstosa/tw5-markdown/highlight.js');\n    const MarkdownIt = require('$:/plugins/anstosa/tw5-markdown/markdown.js');\n    const markdown = new MarkdownIt({\n        highlight: (source, syntax) =&gt; {\n            if (syntax &amp;&amp; highlight.getLanguage(syntax)) {\n                try {\n                    return highlight.highlight(syntax, source).value;\n                } catch (__) {}\n            }\n            return '';\n        },\n        html: true,\n        linkify: true,\n        typographer: true,\n    });\n    markdown.use(require('$:/plugins/anstosa/tw5-markdown/markdown-checkbox.js'), {\n        disabled: true,\n        idPrefix: 'c-task-list__item__checkbox__',\n        ulClass: 'c-task-list',\n        liClass: 'c-task-list__item'\n    });\n\n    const tiddlify = (node, forceText) =&gt; {\n        if (node.nodeType === Node.TEXT_NODE) {\n            let subtree;\n            try {\n                const children = new $tw.Wiki.parsers[TYPE_WIKI](TYPE_WIKI, node.textContent, {}).tree[0].children;\n                if (children.length === 0) {\n                    subtree = null;\n                }\n                else if (children.length === 1) {\n                    subtree = children[0];\n                }\n                else {\n                    subtree = {\n                        type: 'element',\n                        tag: 'span',\n                        children: children,\n                    };\n                }\n            }\n            catch(error) {\n                subtree = null;\n            }\n            if (!forceText &amp;&amp; subtree) {\n                return subtree;\n            }\n            else {\n                return {\n                    text: node.textContent,\n                    type: 'text'\n                };\n            }\n        }\n        if (node.tagName) {\n            const widget = {\n                attributes: {},\n                tag: node.tagName.toLowerCase(),\n                type: 'element'\n            };\n            $tw.utils.each(node.attributes, (attribute) =&gt; {\n                widget.attributes[attribute.nodeName] = {\n                    type: 'string',\n                    value: attribute.nodeValue\n                };\n            });\n            widget.children = [];\n            node.childNodes.forEach((child) =&gt; {\n                const isPlainText = (\n                    forceText ||\n                    widget.tag === 'code' ||\n                    widget.tag === 'a'\n                );\n                widget.children.push(tiddlify(child, isPlainText));\n            });\n            return widget;\n        }\n    };\n\n    class MarkdownParser {\n        constructor(type, text, options) {\n            const source = markdown.render(text);\n            const tree = dom.parseFromString(source, 'text/html');\n            this.tree = tiddlify(tree.body).children;\n        }\n    }\n\n    exports['text/x-markdown'] = MarkdownParser;\n})();\n&quot;,
             &quot;title&quot;: &quot;$:/plugins/anstosa/tw5-markdown/wrapper.js&quot;,
             &quot;type&quot;: &quot;application/javascript&quot;,
             &quot;module-type&quot;: &quot;parser&quot;
@@ -8638,10 +8638,10 @@ Error message and password prompt
 <div created="20171021214049328" modified="20171021214105088" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
-<div created="20171021211525654" modified="20171021214111354" title="$:/state/tab-1749438307">
-<pre>$:/core/ui/ControlPanel/Info</pre>
+<div created="20171021211525654" modified="20171022204541513" title="$:/state/tab-1749438307">
+<pre>$:/core/ui/ControlPanel/Plugins</pre>
 </div>
-<div list="tw5-markdown" title="$:/StoryList">
+<div list="$:/Import $:/ControlPanel tw5-markdown" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -8657,19 +8657,19 @@ Error message and password prompt
         },
         &quot;$:/info/url/full&quot;: {
             &quot;title&quot;: &quot;$:/info/url/full&quot;,
-            &quot;text&quot;: &quot;file:///C:/Users/ansto/Downloads/empty%25252525252520(1)%252525252520(1).html&quot;
+            &quot;text&quot;: &quot;http://demo.santosa.family/&quot;
         },
         &quot;$:/info/url/host&quot;: {
             &quot;title&quot;: &quot;$:/info/url/host&quot;,
-            &quot;text&quot;: &quot;&quot;
+            &quot;text&quot;: &quot;demo.santosa.family&quot;
         },
         &quot;$:/info/url/hostname&quot;: {
             &quot;title&quot;: &quot;$:/info/url/hostname&quot;,
-            &quot;text&quot;: &quot;&quot;
+            &quot;text&quot;: &quot;demo.santosa.family&quot;
         },
         &quot;$:/info/url/protocol&quot;: {
             &quot;title&quot;: &quot;$:/info/url/protocol&quot;,
-            &quot;text&quot;: &quot;file:&quot;
+            &quot;text&quot;: &quot;http:&quot;
         },
         &quot;$:/info/url/port&quot;: {
             &quot;title&quot;: &quot;$:/info/url/port&quot;,
@@ -8677,7 +8677,7 @@ Error message and password prompt
         },
         &quot;$:/info/url/pathname&quot;: {
             &quot;title&quot;: &quot;$:/info/url/pathname&quot;,
-            &quot;text&quot;: &quot;/C:/Users/ansto/Downloads/empty%25252525252520(1)%252525252520(1).html&quot;
+            &quot;text&quot;: &quot;/&quot;
         },
         &quot;$:/info/url/search&quot;: {
             &quot;title&quot;: &quot;$:/info/url/search&quot;,
@@ -8685,7 +8685,7 @@ Error message and password prompt
         },
         &quot;$:/info/url/origin&quot;: {
             &quot;title&quot;: &quot;$:/info/url/origin&quot;,
-            &quot;text&quot;: &quot;file://&quot;
+            &quot;text&quot;: &quot;http://demo.santosa.family&quot;
         }
     }
 }</pre>
