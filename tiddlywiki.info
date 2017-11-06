@@ -1,0 +1,29 @@
+{
+	"description": "A demo wiki for Ansel's Plugins",
+	"plugins": [
+		"anstosa/tw5-markdown",
+		"anstosa/tw5-material"
+	],
+	"themes": [
+		"tiddlywiki/vanilla",
+		"tiddlywiki/snowwhite",
+		"tiddlywiki/starlight",
+		"tiddlywiki/seamless",
+		"tiddlywiki/centralised",
+		"tiddlywiki/tight",
+		"tiddlywiki/heavier",
+		"tiddlywiki/tight-heavier",
+		"tiddlywiki/readonly",
+		"anstosa/tw5-material"
+	],
+	"languages": [
+	],
+	"build": {
+		"index": [
+			"--rendertiddler","$:/core/save/all","index.html","text/plain"
+		]
+	},
+	"config": {
+		"retain-original-tiddler-path": true
+	}
+}
